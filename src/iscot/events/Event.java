@@ -1,20 +1,49 @@
 package iscot.events;
-import java.time.Instant;
+import java.io.Serializable;
 
-public abstract class Event {
-    private final Instant timestamp;
-    private final String area;
-
-    public Event(Instant timestamp, String area) {
-        this.timestamp = timestamp;
-        this.area = area;
+public abstract class Event implements Serializable {
+    public enum Area {
+        WC,
+        BEDROOM,
+        LIVING_ROOM,
+        KITCHEN,
+        GARDEN
     }
 
-    public String getArea() {
+    public enum ClientType {
+        SENSOR,
+        ACTUATOR,
+        DECIDER
+    }
+
+    private String deviceId;
+    public Area area;
+    public ClientType clientType;
+
+    public Event(String deviceId, Area area, ClientType clientType) {
+        this.deviceId = deviceId;
+        this.area = area;
+        this.clientType = clientType;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public Area getArea() {
         return area;
     }
 
-    public Instant getTimestamp() {
-        return timestamp;
+    public ClientType getClientType() {
+        return clientType;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "deviceId='" + deviceId + '\'' +
+                ", area=" + area +
+                ", clientType=" + clientType +
+                '}';
     }
 }
