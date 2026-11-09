@@ -1,12 +1,12 @@
 package iscot.client;
 
-import java.awt.BorderLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import iscot.client.gui.LightIcon;
 import iscot.client.gui.SensorControl;
 import iscot.enums.Areas;
-import iscot.enums.Type;
+import iscot.events.TemperatureSensorEvent;
+import java.awt.BorderLayout;
+import java.io.IOException;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class TemperatureSensor {
 
@@ -40,8 +40,8 @@ public class TemperatureSensor {
 			SensorControl sensorControl= new SensorControl( "🌡️", "Temperatura - "+area, "°C",
 				    -15, 60, 0.5, 20,
 				    valor -> {
-				    	// TODO handle change in sensor
-				    	System.out.println("Mudou para:"+valor+" °C");
+				    	TemperatureSensorEvent event = new TemperatureSensorEvent(area, valor);
+						System.out.print(event);
 				    });
 			painel.add(sensorControl,BorderLayout.CENTER);
 			janela.setContentPane(painel);
