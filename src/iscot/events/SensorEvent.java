@@ -6,6 +6,9 @@ import java.sql.Time;
 
 public abstract class SensorEvent extends Event {
     private double value;
+    public Type getType(){
+        return Type.SENSOR;
+    }
 
     protected SensorEvent(Areas area, double value){
         super(area);
