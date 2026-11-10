@@ -3,20 +3,21 @@ package iscot.events;
 import java.awt.geom.Area;
 
 import iscot.enums.Areas;
+import iscot.enums.AirConditioningMode;
 
 public class AreaTemperatureOrderEvent extends HighLevelOrderEvent {
-    private int targetTemperature;
+    private AirConditioningMode acMode;
 
-    public AreaTemperatureOrderEvent(Areas area, int targetTemperature){
+    public AreaTemperatureOrderEvent(Areas area, AirConditioningMode acMode){
         super(area);
-        this.targetTemperature = targetTemperature;
+        this.acMode = acMode;
     }
 
-    public int getTemperature(){ return targetTemperature; }
+    public AirConditioningMode getMode(){ return acMode; }
 
     @Override 
     public String toString(){
-        return "Temperatura Alvo: " + (targetTemperature) + " [Area=" + getArea() + "]";
+        return "Temperatura Alvo: " + (acMode) + " [Area=" + getArea() + "]";
     }
     
 }

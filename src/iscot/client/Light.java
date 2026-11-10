@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import iscot.client.gui.LightIcon;
 import iscot.enums.Areas;
 import iscot.enums.Type;
+import iscot.events.AreaLightingOrderEvent;
 
 public class Light{
     /**
@@ -60,6 +61,18 @@ public class Light{
 			// TODO: receive and handle messages from server
 			
 			// TODO: for first phase: create an appropriate event hardcoded locally and change the GUI accordingly
+			System.out.println("A aguardar 5 segundos para ligar a luz...");
+			Thread.sleep(5000);
+			
+			AreaLightingOrderEvent eventoLigar = new AreaLightingOrderEvent(area, true);
+			System.out.println("Ordem local recebida: " + eventoLigar.toString());
+			luz.setAtivo(true);
+			
+			Thread.sleep(5000);
+			AreaLightingOrderEvent eventoDesligar = new AreaLightingOrderEvent(area, false);
+			System.out.println("Ordem local recebida: " + eventoDesligar.toString());
+			luz.setAtivo(false);
+
 		}
 	}
 }

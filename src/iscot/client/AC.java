@@ -13,9 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import iscot.client.gui.ACIcon;
-
+import iscot.enums.AirConditioningMode;
 import iscot.enums.Areas;
 import iscot.enums.Type;
+import iscot.events.AreaTemperatureOrderEvent;
 
 public class AC {
 
@@ -47,8 +48,8 @@ public class AC {
 			// Criar os componentes gráficos
 			JPanel painel=new JPanel();
 			painel.setLayout(new BorderLayout());
-			ACIcon ventilator = new ACIcon();
-			painel.add(ventilator,BorderLayout.CENTER);
+			ACIcon ac = new ACIcon();
+			painel.add(ac,BorderLayout.CENTER);
 			janela.setContentPane(painel);
 			janela.setLocation(600, 400);
 			janela.setMinimumSize(janela.getSize());
@@ -56,11 +57,28 @@ public class AC {
 			janela.setVisible(true);
 			
 			Thread.sleep(5000);
-			ventilator.setAtivo(true);
+			ac.setAtivo(true);
 
 			// TODO: receive and handle messages from server
 			
 			// TODO: for first phase: create an appropriate event hardcoded locally and change the GUI accordingly
+			System.out.println("A aguardar 5 segundos para ligar o AC...");
+			Thread.sleep(5000);
+			
+			AreaTemperatureOrderEvent eventoFrio = new AreaTemperatureOrderEvent(area, AirConditioningMode.Frio); 
+			System.out.println("Ordem local recebida: " + eventoFrio.toString());
+			ac.setAtivo(true);
+			AreaTemperatureOrderEvent eventoCalor = new AreaTemperatureOrderEvent(area, AirConditioningMode.Aquecimento); 
+			System.out.println("Ordem local recebida: " + eventoCalor.toString());
+			ac.setAtivo(true);
+			AreaTemperatureOrderEvent eventoVentilacao = new AreaTemperatureOrderEvent(area, AirConditioningMode.Ventilação); 
+			System.out.println("Ordem local recebida: " + eventoVentilacao.toString());
+			ac.setAtivo(true);
+
+			Thread.sleep(5000);
+			AreaTemperatureOrderEvent eventoDesligar = new AreaTemperatureOrderEvent(area, AirConditioningMode.Desligado); 
+			System.out.println("Ordem local recebida: " + eventoDesligar.toString());
+			ac.setAtivo(false);
 		}
 	}
 }

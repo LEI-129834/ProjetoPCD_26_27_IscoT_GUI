@@ -16,6 +16,7 @@ import iscot.client.gui.LightIcon;
 import iscot.client.gui.IrrigationIcon;
 import iscot.enums.Areas;
 import iscot.enums.Type;
+import iscot.events.AreaIrrigationOrderEvent;
 
 public class Irrigation {
 
@@ -47,8 +48,8 @@ public class Irrigation {
 			// Criar os componentes gráficos
 			JPanel painel=new JPanel();
 			painel.setLayout(new BorderLayout());
-			IrrigationIcon ventilator = new IrrigationIcon();
-			painel.add(ventilator,BorderLayout.CENTER);
+			IrrigationIcon rega = new IrrigationIcon();
+			painel.add(rega,BorderLayout.CENTER);
 			janela.setContentPane(painel);
 			janela.setLocation(600, 400);
 			janela.setMinimumSize(janela.getSize());
@@ -56,11 +57,22 @@ public class Irrigation {
 			janela.setVisible(true);
 			
 			Thread.sleep(5000);
-			ventilator.setAtivo(true);
+			rega.setAtivo(true);
 
 			// TODO: receive and handle messages from server
 			
 			// TODO: for first phase: create an appropriate event hardcoded locally and change the GUI accordingly
+			System.out.println("A aguardar 5 segundos para ligar a Rega...");
+			Thread.sleep(5000);
+			
+			AreaIrrigationOrderEvent eventoLigar = new AreaIrrigationOrderEvent(area, true);
+			System.out.println("Ordem local recebida: " + eventoLigar.toString());
+			rega.setAtivo(true);
+			
+			Thread.sleep(5000);
+			AreaIrrigationOrderEvent eventoDesligar = new AreaIrrigationOrderEvent(area, false);
+			System.out.println("Ordem local recebida: " + eventoDesligar.toString());
+			rega.setAtivo(false);
 		}
 	}
 }
